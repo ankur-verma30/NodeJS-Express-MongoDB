@@ -1,0 +1,13 @@
+this is the text which will be used for learning the concepts of reading and writing in the file system.
+Files written
+My name is Ankur Verma I am learning nodeJS
+
+74 68 69 73 20 69 73 20 74 68 65 20 74 65 78 74 20 77 68 69 63 68 20 77 69 6c 6c 20 62 65 20 75 73 65 64 20 66 6f 72 20 6c 65 61 72 6e 69 6e 67 20 74 ... 69
+
+ at Object.<anonymous> (D:\SKILLS\Learning-Backend\Reading-Writing-Asynchronously\index.js:4:1)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)
+    at node:internal/main/run_main_module:28:49
