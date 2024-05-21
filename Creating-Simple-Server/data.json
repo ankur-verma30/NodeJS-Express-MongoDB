@@ -1,0 +1,35 @@
+[
+    {
+        "id": "0",
+        "productName": "Fresh Avacado",
+        "image": "This is image",
+        "from": "Spain",
+        "nutrients": "Vitamin B,Vitamin C",
+        "quantity": "4",
+        "price": "10",
+        "organic": "true",
+        "description": "Lorem ipsum dolor sit amet, consectetur adip occum sociosqu ad minim veniamet dolorad minim veniam etdolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniamet dolor ad minim veniam et dolor ad minim veniam et dcorrectness aliqufugiat nulla pariatur et nonproident et non proident et non proident et non proident et non proident et non proident et non proident etnon proident et non proident et non proident et non proident et non proident et non proident et"
+    },
+    {
+        "id": "1",
+        "productName": "Fresh Orange",
+        "image": "This is image",
+        "from": "India",
+        "nutrients": "Vitamin B,Vitamin C",
+        "quantity": "10",
+        "price": "20",
+        "organic": "true",
+        "description": "Lorem ipsum dolor sit amet, consectetur adip occum sociosqu ad minim veniamet dolorad minim veniam etdolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniamet dolor ad minim veniam et dolor ad minim veniam et dcorrectness aliqufugiat nulla pariatur et nonproident et non proident et non proident et non proident et non proident et non proident et non proident etnon proident et non proident et non proident et non proident et non proident et non proident et"
+    },
+    {
+        "id": "2",
+        "productName": "Fresh Mango",
+        "image": "This is image",
+        "from": "Uttar Pradesh",
+        "nutrients": "Vitamin B,Vitamin C",
+        "quantity": "40",
+        "price": "100",
+        "organic": "true",
+        "description": "Lorem ipsum dolor sit amet, consectetur adip occum sociosqu ad minim veniamet dolorad minim veniam etdolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniam et dolor ad minim veniamet dolor ad minim veniam et dolor ad minim veniam et dcorrectness aliqufugiat nulla pariatur et nonproident et non proident et non proident et non proident et non proident et non proident et non proident etnon proident et non proident et non proident et non proident et non proident et non proident et"
+    }
+]

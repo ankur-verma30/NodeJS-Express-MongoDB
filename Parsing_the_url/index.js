@@ -3,20 +3,21 @@ const http = require('http');
 const url= require('url');
 
 const server=http.createServer((req,res)=>{
-    // console.log(req);
-    // console.log(req.url);
-    const pathName = req.url;
-    if(pathName==='/' || pathName==="/overview"){
+    const {query,pathname}=url.parse(req.url,true);
+    if(pathname==='/' || pathname==="/overview"){
+        console.log(query);
         res.end('This is the overview');
     }
-    else if (pathName==='/api'){
+    else if (pathname==='/api'){
         fs.readFile('./data.json','utf-8',(err, data)=>{
             const productData=JSON.parse(data);
             console.log(productData);
+            console.log(query);
             res.end(data);
         });
     }
-    else if(pathName==='/products'){
+    else if(pathname==='/products'){
+        console.log(query);
         res.end('This is a product');
     }
     else{
