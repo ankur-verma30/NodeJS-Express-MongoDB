@@ -1,53 +1,94 @@
-
-    { 
-        "tours": [
-      {
-        "id": 1,
-        "name": "European Highlights",
-        "destination": "Europe",
-        "duration": "12 days",
-        "price": 2500,
-        "currency": "USD",
-        "description": "Explore the best of Europe with visits to Paris, Rome, and Amsterdam. Enjoy guided tours, famous landmarks, and cultural experiences.",
-        "itinerary": [
-          { "day": 1, "activity": "Arrival in Paris, welcome dinner." },
-          { "day": 2, "activity": "Eiffel Tower visit, Seine river cruise." },
-          { "day": 3, "activity": "Travel to Amsterdam, canal tour." },
-          { "day": 4, "activity": "Visit Anne Frank House and Van Gogh Museum." },
-          { "day": 5, "activity": "Train to Berlin, city sightseeing." },
-          { "day": 6, "activity": "Explore Berlin's historic sites." },
-          { "day": 7, "activity": "Flight to Rome, Colosseum tour." },
-          { "day": 8, "activity": "Visit Vatican City, St. Peter's Basilica." },
-          { "day": 9, "activity": "Free day in Rome." },
-          { "day": 10, "activity": "Travel to Florence, explore art galleries." },
-          { "day": 11, "activity": "Day trip to Pisa." },
-          { "day": 12, "activity": "Departure from Florence." }
-        ],
-        "inclusions": [
-          "Accommodation in 4-star hotels",
-          "Daily breakfast and dinner",
-          "Guided city tours",
-          "All transportation between cities"
-        ],
-        "exclusions": [
-          "Flights to/from Europe",
-          "Travel insurance",
-          "Lunches",
-          "Personal expenses"
-        ],
-        "ratings": 4.7,
-        "reviews": [
-          {
-            "reviewer": "John Doe",
-            "rating": 5,
-            "comment": "Absolutely loved this tour! The itinerary was well-planned."
-          },
-          {
-            "reviewer": "Jane Smith",
-            "rating": 4.5,
-            "comment": "A fantastic experience, but the Rome hotel could be better."
-          }
-        ]
-      }
-    ]
+{
+  "tours": [
+    {
+      "id": 1,
+      "name": "European Highlights",
+      "destination": "Europe",
+      "duration": "12 days",
+      "price": 2500,
+      "currency": "USD",
+      "description": "Explore the best of Europe with visits to Paris, Rome, and Amsterdam. Enjoy guided tours, famous landmarks, and cultural experiences.",
+      "itinerary": [
+        {
+          "day": 1,
+          "activity": "Arrival in Paris, welcome dinner."
+        },
+        {
+          "day": 2,
+          "activity": "Eiffel Tower visit, Seine river cruise."
+        },
+        {
+          "day": 3,
+          "activity": "Travel to Amsterdam, canal tour."
+        },
+        {
+          "day": 4,
+          "activity": "Visit Anne Frank House and Van Gogh Museum."
+        },
+        {
+          "day": 5,
+          "activity": "Train to Berlin, city sightseeing."
+        },
+        {
+          "day": 6,
+          "activity": "Explore Berlin's historic sites."
+        },
+        {
+          "day": 7,
+          "activity": "Flight to Rome, Colosseum tour."
+        },
+        {
+          "day": 8,
+          "activity": "Visit Vatican City, St. Peter's Basilica."
+        },
+        {
+          "day": 9,
+          "activity": "Free day in Rome."
+        },
+        {
+          "day": 10,
+          "activity": "Travel to Florence, explore art galleries."
+        },
+        {
+          "day": 11,
+          "activity": "Day trip to Pisa."
+        },
+        {
+          "day": 12,
+          "activity": "Departure from Florence."
+        }
+      ],
+      "inclusions": [
+        "Accommodation in 4-star hotels",
+        "Daily breakfast and dinner",
+        "Guided city tours",
+        "All transportation between cities"
+      ],
+      "exclusions": [
+        "Flights to/from Europe",
+        "Travel insurance",
+        "Lunches",
+        "Personal expenses"
+      ],
+      "ratings": 4.7,
+      "reviews": [
+        {
+          "reviewer": "John Doe",
+          "rating": 5,
+          "comment": "Absolutely loved this tour! The itinerary was well-planned."
+        },
+        {
+          "reviewer": "Jane Smith",
+          "rating": 4.5,
+          "comment": "A fantastic experience, but the Rome hotel could be better."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "test-tour",
+      "duration": "10 days",
+      "difficulty": "Easy"
     }
+  ]
+}
