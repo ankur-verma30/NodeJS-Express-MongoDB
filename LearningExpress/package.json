@@ -4,11 +4,16 @@
   "description": "this is the tutorial to learn backend development",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js"
   },
   "author": "Ankur Verma",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

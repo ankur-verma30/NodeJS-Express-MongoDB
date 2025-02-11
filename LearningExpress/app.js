@@ -5,8 +5,12 @@ const morgan = require("morgan");
 const app = express();
 
 // Middlewares
-app.use(morgan("dev"));
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
+
 const myMiddleware = (req, res, next) => {
   console.log("Hello from my middleware");
   next();
@@ -22,4 +26,4 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/v1/tours", tourRouter);
 
-module.exports=app;
+module.exports = app;

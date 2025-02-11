@@ -2,6 +2,26 @@ const fs = require("fs");
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../tours.json`));
 
+exports.checkId = (req, res, next, val) => {
+  console.log(`The id is `, val);
+  if (req.params.id * 1 > tours.tours.length) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Tour not found",
+    });
+  }
+  next();
+};
+
+exports.checBody=(req,res,next)=>{
+if(!req.body.name || !req.body.price) return res.status(400).json({
+  status: "fail",
+  message: "Missing name or price in the request body",
+})
+
+next();
+}
+
 exports.getAllTours = (req, res) => {
   console.log("Time taken:", req.responseTime);
   return res.status(200).json({
@@ -14,7 +34,7 @@ exports.getAllTours = (req, res) => {
 
 exports.createTour = (req, res) => {
   const newId = tours.tours[tours.tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
+  const newTour = Object.assign({ id: newId }, req.body); //use to make a single object and it return the new object
 
   tours.tours.push(newTour);
 
