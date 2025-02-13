@@ -4,26 +4,24 @@ const morgan = require("morgan");
 
 const app = express();
 
-// Middlewares
-if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("dev"));
-}
-app.use(express.json());
-app.use(express.static(`${__dirname}/public`));
-
-const myMiddleware = (req, res, next) => {
-  console.log("Hello from my middleware");
-  next();
-};
-
-app.use(myMiddleware);
-
+// ✅ Debugging middleware to track requests
 app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
+  console.log(`📢 Incoming request: ${req.method} ${req.url}`);
   next();
 });
 
-//routes
+// ✅ Enable logging in development mode
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
+
+app.use(express.json());
+
+app.get('/',(req,res)=>{
+  res.send('Welcome to the Tour API');
+})
+
+// ✅ Use tour routes
 app.use("/api/v1/tours", tourRouter);
 
 module.exports = app;
