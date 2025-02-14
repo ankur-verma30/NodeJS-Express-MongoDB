@@ -15,6 +15,6 @@ const router = express.Router();
 // router.param("id", checkId);
 
 router.route("/").get(getAllTours).post(createTour);
-// router.route("/:id").get(getToursById).patch(updatedTours).delete(deleteTours);
+router.route("/:id").get(getToursById).patch(updatedTours).delete(deleteTours);
 
 module.exports = router;
