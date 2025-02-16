@@ -1,8 +1,38 @@
+const { json } = require("express");
 const Tour = require("./../models/tourModel");
 
 exports.getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    console.log("Request Query object", req.query);
+    // 1) simple filtering method
+    const excludedFields = ["page","sort","limit", "fields"];
+    excludedFields.forEach((element) => delete queryObj[element]);
+
+    // 2) Advanced filtering object containing greater than or less than symbols
+    const queryStr = JSON.stringify(queryObj);
+    const newQueryStr = queryStr.replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      (match) => `$ ${match}`
+    );
+    // console.log("New Query String object", JSON.parse(newQueryStr));
+    const newQueryObj = JSON.parse(newQueryStr);
+    let query = Tour.find(newQueryObj);
+    
+    // {difficulty:'easy',durations:{$gte:5}} in mongoDB
+    // { duration: { gte: '5' }, difficulty: 'easy' } we get from req.query
+    // 3) Sorting the results on the basis of the certain properties
+    if(req.query.sort){
+      const sortBy=req.query.sort.split(',').join(' ');
+      console.log("Sort by ", sortBy);
+      query=query.sort(sortBy);
+      //sortby(-price rating) //this is taken by mongoose
+    }
+    else{
+      query=query.sort('_id');
+    }
+    const tours = await query;
+
     res.status(200).json({
       requestedAt: req.requestTime,
       status: "success",
