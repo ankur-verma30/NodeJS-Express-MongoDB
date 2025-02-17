@@ -1,15 +1,17 @@
 const express = require("express");
 const tourController = require("../controllers/tourController");
 
+const router = express.Router();
 const {
   getAllTours,
   createTour,
   getToursById,
   updatedTours,
   deleteTours,
+  aliasTopTours,
 } = tourController;
 
-const router = express.Router();
+router.route("/top-5-cheap").get(aliasTopTours, getAllTours);
 
 //only works for id parameter
 // router.param("id", checkId);
