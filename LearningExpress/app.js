@@ -17,9 +17,6 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use(express.json());
 
-app.get('/',(req,res)=>{
-  res.send('Welcome to the Tour API');
-})
 
 // ✅ Use tour routes
 app.use("/api/v1/tours", tourRouter);

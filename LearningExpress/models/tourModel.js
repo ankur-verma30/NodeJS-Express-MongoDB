@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
+const slugify=require("slugify");
 const tourSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "A tour must have a name"],
     unique: true,
     trim:true,
+  },
+  slug: {
+    type: String,
   },
   duration: {
     type: Number,
@@ -41,7 +45,7 @@ const tourSchema = mongoose.Schema({
     },
     imageCover:{
       type: String,
-      required: [true, "A tour must have a cover image"]
+      // required: [true, "A tour must have a cover image"]
     },
     images:{ 
       type: [String],
@@ -51,7 +55,25 @@ const tourSchema = mongoose.Schema({
       default: Date.now(),
     },
     startDates: [Date],
+},
+{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 });
 
+tourSchema.virtual('durationWeeks').get(function(){
+  return this.duration/7;
+})
+
+//Document middleware before .save() and .create() but not befor the .insertMany() command
+tourSchema.pre('save',async function(next){
+this.slug=slugify(this.name,{lower:true})
+next();
+})
+//can have multiple pre and post middlware commands
+tourSchema.post('save',async function(doc,next){
+  console.log(doc);
+next();
+})
 const Tour = mongoose.model("Tour", tourSchema);
 module.exports = Tour;
