@@ -1,5 +1,6 @@
 const express = require("express");
 const tourController = require("../controllers/tourController");
+const authController=require("../controllers/authController");
 
 const router = express.Router();
 const {
@@ -9,16 +10,23 @@ const {
   updatedTours,
   deleteTours,
   aliasTopTours,
-  getTourStats
+  getTourStats,
 } = tourController;
 
+const {protect}=authController;
+
 router.route("/top-5-cheap").get(aliasTopTours, getAllTours);
-router.route('/tour-stats').get(getTourStats)
+router.route("/tour-stats").get(getTourStats);
 
-//only works for id parameter
-// router.param("id", checkId);
+router
+.route("/")
+.get(protect,getAllTours)
+.post(protect,createTour);
 
-router.route("/").get(getAllTours).post(createTour);
-router.route("/:id").get(getToursById).patch(updatedTours).delete(deleteTours);
+router
+.route("/:id")
+.get(protect,getToursById)
+.patch(protect,updatedTours)
+.delete(protect,deleteTours);
 
 module.exports = router;
