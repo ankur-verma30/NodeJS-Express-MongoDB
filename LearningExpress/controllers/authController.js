@@ -25,6 +25,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    role:req.body.role || "user",
   });
 
   const token = signToken(newUser._id);
@@ -66,16 +67,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
-    req.headers.authorization.startswith("Bearer")
+    req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
   }
   if (!token) return next(new AppError("You are not logged in", 401));
 
   //2) Verification of the token why promisify have used
-  const decoded = await promisify(
-    jwt.verify(token, process.env.JWT_SECRET_KEY)
-  );
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY);
 
   //3) Check if the user still exists
   const currentUser = await User.findById(decoded.id);
@@ -94,3 +93,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   //5) Call the next middleware
   next();
 });
+
+exports.restrictTo= (...roles)=>{
+return (req,res,next)=>{
+  //roles is an array  ["admin","lead-guide"]
+  if(!roles.includes(req.user.role)){
+    return next(new AppError("You do not have permission to perform this action",403)); //Unrestricted access or forbidden
+  }
+
+  next();
+}
+}

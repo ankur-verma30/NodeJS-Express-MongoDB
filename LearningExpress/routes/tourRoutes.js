@@ -13,7 +13,7 @@ const {
   getTourStats,
 } = tourController;
 
-const {protect}=authController;
+const {protect,restrictTo}=authController;
 
 router.route("/top-5-cheap").get(aliasTopTours, getAllTours);
 router.route("/tour-stats").get(getTourStats);
@@ -27,6 +27,6 @@ router
 .route("/:id")
 .get(protect,getToursById)
 .patch(protect,updatedTours)
-.delete(protect,deleteTours);
+.delete(protect,restrictTo('admin','lead-guide'),deleteTours);
 
 module.exports = router;
