@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
+const catchAsync = require("../utils/catchAsync");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,9 +21,9 @@ const userSchema = new mongoose.Schema({
   photo: {
     type: String,
   },
-  role:{
+  role: {
     type: String,
-    enum: ["user","guide","lead-guide", "admin"],
+    enum: ["user", "guide", "lead-guide", "admin"],
     default: "user",
   },
   password: {
@@ -41,7 +43,14 @@ const userSchema = new mongoose.Schema({
       message: "Passwords do not match",
     },
   },
-  passwordChangedAt:Date,
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpiresAt: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  }
 });
 
 //instance function available to all the documents
@@ -52,16 +61,38 @@ userSchema.methods.correctPasswords = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPassword=function(JWTTimestamp){
-
-  if(this.passwordChangedAt){
-    const changedTimestamp=parseInt(this.passwordChangedAt.getTime()/1000,10);
-    console.log(this.passwordChangedAt,JWTTimestamp);
+userSchema.methods.changedPassword = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    console.log(this.passwordChangedAt, JWTTimestamp);
     return JWTTimestamp < changedTimestamp; //changed password
   }
   return false; //not changed password
-}
+};
 
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  console.log({ resetToken }, this.passwordResetToken);
+
+  this.passwordResetExpiresAt = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
+
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now()-1000;
+  next();
+});
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 15);
@@ -69,6 +100,13 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.pre(/^find/,function(next){
+  this.find({active:{$ne:false}})
+  next();
+})
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
+
