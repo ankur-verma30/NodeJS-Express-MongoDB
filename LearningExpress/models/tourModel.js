@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const validator=require("validator");
+const validator = require("validator");
 const tourSchema = mongoose.Schema(
   {
     name: {
@@ -8,8 +8,8 @@ const tourSchema = mongoose.Schema(
       required: [true, "A tour must have a name"],
       unique: true,
       trim: true,
-      maxlength: [40,'A tour must have a name less than 40 characters'],
-      minlength:[5, 'A tour must have more than 5 characters'],
+      maxlength: [40, "A tour must have a name less than 40 characters"],
+      minlength: [5, "A tour must have more than 5 characters"],
       // validate:[validator.isAlpha,'Must have all characters']
     },
     slug: {
@@ -43,14 +43,15 @@ const tourSchema = mongoose.Schema(
       default: 0,
     },
     priceDiscount: {
-      type:Number,
-      validate:{
-        validator:function(val){
+      type: Number,
+      validate: {
+        validator: function (val) {
           //does not work when updation takes place
-          return val<this.price;
+          return val < this.price;
         },
-       message:"Price discount ({VALUE}) should be lower than the actual price"
-      }
+        message:
+          "Price discount ({VALUE}) should be lower than the actual price",
+      },
     },
     summary: {
       type: String,
@@ -115,16 +116,16 @@ tourSchema.post(/^find/, function (docs, next) {
 });
 
 //Aggregation middleware
-tourSchema.pre('aggregate',function(next){
-  this.pipeline().unshift({$match:{secretTour: { $ne:true}}})
-  console.log("Before performing Aggregation",this);
+tourSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  console.log("Before performing Aggregation", this);
   next();
-  })
- 
-  tourSchema.post('aggregate',function(docs,next){
-  console.log("After performing Aggregation",docs);
+});
+
+tourSchema.post("aggregate", function (docs, next) {
+  console.log("After performing Aggregation", docs);
   next();
-  })
+});
 
 const Tour = mongoose.model("Tour", tourSchema);
 module.exports = Tour;
